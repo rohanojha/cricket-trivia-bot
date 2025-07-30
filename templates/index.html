@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🏏 Daily Cricket Trivia</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🏏 Daily Cricket Trivia</h1>
+
+    <section class="trivia-box">
+      <ul id="trivia-list">
+        <li>Loading today's events...</li>
+      </ul>
+    </section>
+
+    <button onclick="fetchTrivia()" class="surprise-btn">🎲 Surprise Me</button>
+
+    <section class="image-gallery">
+      <h2>📸 Iconic Cricket Moments</h2>
+      <div class="gallery">
+        <img src="/static/cricket1.jpg" alt="Cricket Moment 1">
+        <img src="/static/cricket2.jpg" alt="Cricket Moment 2">
+        <img src="/static/cricket3.jpg" alt="Cricket Moment 3">
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function fetchTrivia() {
+      fetch('/api/trivia')
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('trivia-list');
+          list.innerHTML = '';
+          data.trivia.forEach((fact, i) => {
+            const li = document.createElement('li');
+            const emoji = ['🎂', '🏟️', '📈', '🤪', '🏆'][i % 5];
+            li.textContent = `${emoji} ${fact}`;
+            list.appendChild(li);
+          });
+        });
+    }
+
+    fetchTrivia();
+  </script>
+</body>
+</html>
