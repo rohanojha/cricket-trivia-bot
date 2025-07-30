@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 from datetime import datetime
 import openai
+import os
 
 app = Flask(__name__)
 
@@ -30,4 +31,5 @@ def trivia():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Render uses port 10000 by default
+    app.run(host="0.0.0.0", port=port)
